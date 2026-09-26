@@ -1,0 +1,21 @@
+{
+  "name": "playwrighttypescriptframework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adarsh409/PlaywrightTypescriptFramework.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Adarsh409/PlaywrightTypescriptFramework/issues"
+  },
+  "homepage": "https://github.com/Adarsh409/PlaywrightTypescriptFramework#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.3"
+  }
+}

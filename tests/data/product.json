@@ -1,0 +1,6 @@
+{
+    "productSearch":{
+        "searchText":"Hammer",
+        "expectedSearchResultCount":6
+    }
+}
