@@ -1,0 +1,6 @@
+{
+    "product":{
+        "addToCartSuccess":"Product added to shopping cart.",
+        "removeFromCartSuccess":"Product deleted."
+    }
+}
