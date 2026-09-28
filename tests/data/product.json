@@ -3,12 +3,8 @@
         "searchText":"Hammer",
         "expectedSearchResultCount":6
     },
-    "purchaseItems":[
-        {
-            "searchText":"Plier",
-            "productName":"Slip Joint Pliers",
-            "count":2
-        },
+    "purchaseList1":[
+       
         {
             "searchText":"Saw",
             "productName":"Wood Saw",
