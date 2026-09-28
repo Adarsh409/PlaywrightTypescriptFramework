@@ -2,5 +2,13 @@
     "productSearch":{
         "searchText":"Hammer",
         "expectedSearchResultCount":6
-    }
+    },
+    "purchaseList1":[
+       
+        {
+            "searchText":"Saw",
+            "productName":"Wood Saw",
+            "count":1
+        }
+    ]
 }

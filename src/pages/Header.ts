@@ -1,18 +1,18 @@
 import { Page, Locator } from '@playwright/test'
 import { HomePage } from './HomePage';
-import { LoginPage } from './LoginPage';
+import {CartPage} from '../pages/CartPage';
+
 
 export class Header
 {
     private readonly page: Page;
     private readonly homeLink: Locator;
-    private readonly signInLink: Locator;
-
+    private readonly cartLink: Locator;
     constructor(page: Page)
     {
         this.page = page;
         this.homeLink = page.getByRole("link", { name: "Home" });
-        this.signInLink = page.getByRole("link", { name: "Sign in" });
+       this.cartLink = page.getByRole("link",{name:"cart"})
     }
 
     private async waitForPageLoad()
@@ -27,10 +27,13 @@ export class Header
         return new HomePage(this.page);
     }
 
-    async navigateToLoginPage():Promise<LoginPage>
+    async navigateToCartPage():Promise<CartPage>
     {
-        await this.signInLink.click();
+        await this.cartLink.click();
         await this.waitForPageLoad();
-        return new LoginPage(this.page);
+        return new CartPage(this.page);
+
     }
+
+   
 }

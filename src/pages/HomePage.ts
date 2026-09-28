@@ -1,6 +1,7 @@
 import { Page, Locator } from '@playwright/test'
 import { BasePage } from './BasePage'
 import { Header } from './Header'
+import {ProductDetailsPage} from '../pages/ProductDetailsPage'
 
 export class HomePage extends BasePage
 {
@@ -57,6 +58,12 @@ export class HomePage extends BasePage
         return await this.searchResults.all();
         
 
+    }
+    async selectProduct(productName?:string):Promise<ProductDetailsPage>
+    {
+       await this.searchResults.filter({hasText:productName}).click();
+       await this.waitForPageLoad();
+       return new ProductDetailsPage(this.page);
     }
 
    
