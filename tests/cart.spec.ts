@@ -5,6 +5,7 @@ import validationText from '../tests/constants/validation-text.json'
 
 test("", async({page}) => {
     const homePage = new HomePage(page);
+    let itemCount = 0;
     await homePage.loadApplication();
     const purchaseItems = product.purchaseList1;
     for(let i = 0;i<purchaseItems.length;i++)
@@ -14,14 +15,21 @@ test("", async({page}) => {
         await expect(await homePage.getSearchResultMessage()).not.toHaveText(`0 products found for '${item.searchText}'`);
         const productDetailsPage = await homePage.selectProduct(item.productName);
         await productDetailsPage.addProductToCart(item.count);
-        expect.soft(await productDetailsPage.getAlertMsg()).toHaveText(validationText.product.addToCartSuccess)
-        if(i != purchaseItems.length - 1)
-        {
-            await page.goBack();
-        }
-        const cartPage = await homePage.header.navigateToCartPage()
-        await cartPage.getProductInfoInCart();
+        const alertMsg = await productDetailsPage.getAlertMsg();
+        await expect.soft(alertMsg).toHaveText(validationText.product.addToCartSuccess)
+        itemCount = itemCount + Number(item.count);
+             await page.goBack();
+        await expect.soft(await homePage.header.getCartQuantity()).toHaveText(String(itemCount))
+       
     }
+     const cartPage = await homePage.header.navigateToCartPage()
+        expect(await cartPage.isProductRowsVisible()).toBeTruthy();
+        const cartInfo = await cartPage.getProductInfoInCart();
+        for(let item of purchaseItems)
+        {
+            expect.soft(cartInfo).toHaveProperty(item.productName)
+            expect.soft(cartInfo[item.productName]?.quantity).toBe(String(item.count))
+        }
     
     
 })

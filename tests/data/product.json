@@ -9,6 +9,11 @@
             "searchText":"Saw",
             "productName":"Wood Saw",
             "count":1
+        },
+         {
+            "searchText":"Pliers",
+            "productName":"Combination Pliers",
+            "count":2
         }
     ]
 }
