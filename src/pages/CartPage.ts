@@ -1,4 +1,4 @@
-import{Page,Locator} from '@playwright/test';
+import{Page,Locator,expect} from '@playwright/test';
 import {BasePage} from '../pages/BasePage'
 export class CartPage extends BasePage{
     private readonly productRows:Locator;
@@ -6,6 +6,7 @@ export class CartPage extends BasePage{
     private readonly productQuantity:Locator;
     private readonly productPrice:Locator;
     private readonly productTotalPrice:Locator;
+    private readonly cartTotal:Locator;
 
     constructor(page:Page)
     {
@@ -15,6 +16,13 @@ export class CartPage extends BasePage{
         this.productQuantity = page.getByTestId('product-quantity');
         this.productPrice = page.getByTestId('product-price');
         this.productTotalPrice = page.getByTestId('line-price')
+        this.cartTotal = page.getByTestId('cart-total')
+    }
+
+    async getCartTotal(): Promise<number>
+    {
+        const text = await this.cartTotal.textContent() ?? '';
+        return parseFloat(text.replace('$', '').trim());
     }
 
     async isProductRowsVisible():Promise<boolean>
@@ -25,6 +33,7 @@ export class CartPage extends BasePage{
 
     async getProductInfoInCart()
     {
+        await expect(this.productRows.first()).toBeVisible();
         const products = await this.productRows.all();
         console.log(products.length)
         const cartData: Record<string,{'quantity':string,'price':string,'total':string}>={};

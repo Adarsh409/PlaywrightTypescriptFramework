@@ -38,11 +38,10 @@ export class Header
 
     async navigateToCartPage():Promise<CartPage>
     {
-        
-            await this.cartLink.click();
-            
-                return new CartPage(this.page);
-
+        await this.cartLink.click();
+        await this.page.waitForURL('**/checkout');
+        await this.waitForPageLoad();
+        return new CartPage(this.page);
     }
 
    
