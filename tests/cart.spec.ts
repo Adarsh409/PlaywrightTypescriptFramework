@@ -3,7 +3,7 @@ import { HomePage } from '../src/pages/HomePage'
 import product from './data/product.json'
 import validationText from '../tests/constants/validation-text.json'
 
-test("", async({page}) => {
+test("should add multiple products to cart with correct quantities", async({page}) => {
     const homePage = new HomePage(page);
     let itemCount = 0;
     await homePage.loadApplication();
