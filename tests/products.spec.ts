@@ -13,6 +13,13 @@ test("should display only matching products when searching by keyword", async({p
     {
         await expect(item).toContainText(productSearchData.searchText)
     }
-    
-    
+
+
 })
+
+test.only("should add a product to the cart via the api", async({page}) => {
+    
+
+   
+})
+

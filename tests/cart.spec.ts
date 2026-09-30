@@ -2,7 +2,7 @@ import {test,expect} from '../src/fixtures/base'
 import { HomePage } from '../src/pages/HomePage'
 import product from './data/product.json'
 import validationText from '../tests/constants/validation-text.json'
-
+import {ApiUtils} from '../src/utils/apiUtils'
 test("should add multiple products to cart with correct quantities", async({page}) => {
     const homePage = new HomePage(page);
     let itemCount = 0;
@@ -32,4 +32,40 @@ test("should add multiple products to cart with correct quantities", async({page
         }
     
     
+});
+
+
+test.only('show display the correct product prices', async({page}) =>{
+    const homePage = new HomePage(page);
+    await homePage.loadApplication();
+
+    const apiUtils = new ApiUtils(page.context().request);
+    const productsToAdd = product.purchaseList1;
+    const cartId = await apiUtils.createCart();
+    let totalQuantity = 0;
+
+    for(let item of productsToAdd)
+    {
+        const productId = await apiUtils.getProductIdByName(item.productName);
+        await apiUtils.addProductToCart(cartId,productId,item.count)
+        totalQuantity += item.count;
+    }
+
+    await homePage.setCartId(cartId, totalQuantity);
+    const cartPage = await homePage.header.navigateToCartPage();
+    const cartInfo = await cartPage.getProductInfoInCart();
+
+    let expectedGrandTotal = 0;
+    for(let item of productsToAdd)
+    {
+        const info = cartInfo[item.productName];
+        expect.soft(info).toBeDefined();
+        const price = parseFloat(info.price.replace('$', ''));
+        const total = parseFloat(info.total.replace('$', ''));
+        expect.soft(total).toBe(Number((price * item.count).toFixed(2)));
+        expectedGrandTotal += total;
+    }
+
+    const actualGrandTotal = await cartPage.getCartTotal();
+    expect.soft(actualGrandTotal).toBe(Number(expectedGrandTotal.toFixed(2)));
 })

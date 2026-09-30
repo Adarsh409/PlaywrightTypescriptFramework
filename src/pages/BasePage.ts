@@ -16,8 +16,15 @@ export abstract class BasePage
         await this.page.waitForLoadState('networkidle');
     }
 
-    getAccountNameLocator():Locator
+    
+
+    async setCartId(cartId: string, quantity: number): Promise<void>
     {
-        return this.accountName;
+        await this.page.evaluate((cart) => {
+            sessionStorage.setItem('cart_id', cart.id);
+            sessionStorage.setItem('cart_quantity', String(cart.quantity));
+        }, { id: cartId, quantity });
+        await this.page.reload();
+        await this.waitForPageLoad();
     }
 }
