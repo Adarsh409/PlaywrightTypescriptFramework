@@ -26,7 +26,7 @@ export class Header
 
     private async waitForPageLoad()
     {
-        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToHomePage():Promise<HomePage>
