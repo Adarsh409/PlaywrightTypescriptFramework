@@ -35,7 +35,7 @@ test("should add multiple products to cart with correct quantities", async({page
 });
 
 
-test.only('show display the correct product prices', async({page}) =>{
+test('show display the correct product prices', async({page}) =>{
     const homePage = new HomePage(page);
     await homePage.loadApplication();
 
