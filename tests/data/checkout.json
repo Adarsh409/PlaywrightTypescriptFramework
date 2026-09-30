@@ -1,0 +1,16 @@
+{
+    "guestDetails": {
+        "email": "guest.tester@example.com",
+        "firstName": "Guest",
+        "lastName": "Tester"
+    },
+    "billingAddress": {
+        "street": "123 Test Street",
+        "city": "Berlin",
+        "state": "Berlin",
+        "country": "Germany",
+        "postalCode": "10115",
+        "houseNumber": "42"
+    },
+    "paymentMethod": "cash-on-delivery"
+}
