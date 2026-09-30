@@ -17,9 +17,5 @@ test("should display only matching products when searching by keyword", async({p
 
 })
 
-test.only("should add a product to the cart via the api", async({page}) => {
-    
 
-   
-})
 
