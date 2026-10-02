@@ -26,7 +26,7 @@ export class Header
 
     private async waitForPageLoad()
     {
-        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToHomePage():Promise<HomePage>
@@ -34,6 +34,11 @@ export class Header
         await this.homeLink.click();
         await this.waitForPageLoad();
         return new HomePage(this.page);
+    }
+
+    async isCartPageLinkVisible()
+    {
+        return this.cartLink;
     }
 
     async navigateToCartPage():Promise<CartPage>
