@@ -22,6 +22,7 @@ test("should complete guest checkout for products added via the api", async({pag
     }
 
     await homePage.setCartId(cartId, totalQuantity);
+    await expect(await homePage.header.isCartPageLinkVisible()).toBeVisible({ timeout: 30000 });
     const cartPage = await homePage.header.navigateToCartPage();
     await cartPage.getProductInfoInCart();
 
