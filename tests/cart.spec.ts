@@ -2,7 +2,6 @@ import {test,expect} from '../src/fixtures/base'
 import { HomePage } from '../src/pages/HomePage'
 import product from './data/product.json'
 import validationText from '../tests/constants/validation-text.json'
-import {ApiUtils} from '../src/utils/apiUtils'
 test("should add multiple products to cart with correct quantities", async({page}) => {
     const homePage = new HomePage(page);
     let itemCount = 0;

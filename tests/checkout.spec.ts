@@ -1,27 +1,32 @@
 import {test,expect} from '../src/fixtures/base';
 import {HomePage} from '../src/pages/HomePage'
 import {CheckoutPage} from '../src/pages/CheckoutPage'
-import {ApiUtils} from '../src/utils/apiUtils'
 import product from './data/product.json'
 import checkoutData from './data/checkout.json'
+import validationText from '../tests/constants/validation-text.json'
 
 test("should complete guest checkout for products added via the api", async({page}) => {
     const homePage = new HomePage(page);
     await homePage.loadApplication();
 
-    const apiUtils = new ApiUtils(page.context().request);
     const productsToAdd = product.purchaseList1;
-    const cartId = await apiUtils.createCart();
     let totalQuantity = 0;
-
+    let itemCount = 0;
     for(let item of productsToAdd)
     {
-        const productId = await apiUtils.getProductIdByName(item.productName);
-        await apiUtils.addProductToCart(cartId,productId,item.count)
+         await homePage.searchProduct(item.searchText);
+        await expect(await homePage.getSearchResultMessage()).not.toHaveText(`0 products found for '${item.searchText}'`);
+        const productDetailsPage = await homePage.selectProduct(item.productName);
+        await productDetailsPage.addProductToCart(item.count);
+        const alertMsg = await productDetailsPage.getAlertMsg();
+        await expect.soft(alertMsg).toHaveText(validationText.product.addToCartSuccess)
+        itemCount = itemCount + Number(item.count);
+             await page.goBack();
+        await expect(await homePage.header.getCartQuantity()).toHaveText(String(itemCount));
         totalQuantity += item.count;
     }
 
-    await homePage.setCartId(cartId, totalQuantity);
+    
     const cartPage = await homePage.header.navigateToCartPage();
     await cartPage.getProductInfoInCart();
 

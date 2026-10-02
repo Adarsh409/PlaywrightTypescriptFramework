@@ -6,7 +6,7 @@ export class ProductDetailsPage
     private readonly alertMsg:Locator;
     constructor(page:Page)
     {
-        this.addToCartButton = page.getByRole("button",{name:"Add to cart "});
+        this.addToCartButton = page.getByRole("button",{name:"Add to cart"});
         this.addQuantityButton = page.getByRole("button",{name:"Increase quantity"})
         this.alertMsg = page.getByRole("alert");
     }
