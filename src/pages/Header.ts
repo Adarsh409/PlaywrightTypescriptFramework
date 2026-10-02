@@ -36,6 +36,11 @@ export class Header
         return new HomePage(this.page);
     }
 
+    async isCartPageLinkVisible()
+    {
+        return this.cartLink;
+    }
+
     async navigateToCartPage():Promise<CartPage>
     {
         await this.cartLink.click();

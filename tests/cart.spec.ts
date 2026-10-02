@@ -52,6 +52,7 @@ test('show display the correct product prices', async({page}) =>{
     }
 
     await homePage.setCartId(cartId, totalQuantity);
+    expect(await homePage.header.isCartPageLinkVisible()).toBeVisible();
     const cartPage = await homePage.header.navigateToCartPage();
     const cartInfo = await cartPage.getProductInfoInCart();
 
