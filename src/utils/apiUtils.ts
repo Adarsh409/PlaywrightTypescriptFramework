@@ -3,7 +3,7 @@ import { APIRequestContext, expect } from '@playwright/test';
 export class ApiUtils
 {
     private readonly request: APIRequestContext;
-    private readonly baseUrl = 'https://api.practicesoftwaretesting.com';
+    private readonly baseUrl = process.env.API_BASE_URL ?? 'https://api.practicesoftwaretesting.com';
 
     constructor(request: APIRequestContext)
     {
