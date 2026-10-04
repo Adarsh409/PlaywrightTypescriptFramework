@@ -16,6 +16,7 @@
   "homepage": "https://github.com/Adarsh409/PlaywrightTypescriptFramework#readme",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.3"
+    "@types/node": "^26.6.3",
+    "allure-playwright": "^3.13.0"
   }
 }
