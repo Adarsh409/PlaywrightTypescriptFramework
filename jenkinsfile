@@ -1,0 +1,44 @@
+pipeline {
+  agent any           
+  options {
+    timeout(time: 60, unit: 'MINUTES')
+    buildDiscarder(logRotator(numToKeepStr: '20'))
+  }
+
+  triggers {
+    cron('H 2 * * *')          
+  }
+
+  stages {
+    stage('Test') {
+      agent {
+        docker {
+          image 'mcr.microsoft.com/playwright:v1.63.0-noble'   // your Playwright version
+          args '--ipc=host -u root'
+          reuseNode true
+        }
+      }
+      environment {
+        CI = 'true'
+
+      }
+      steps {
+        sh 'rm -rf allure-results test-results'
+        sh 'npm ci'
+        sh 'npx playwright test'
+      }
+      post {
+        always {
+          sh 'chown -R $(stat -c "%u:%g" .) .'
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      allure commandline: 'allure', includeProperties: false, results: [[path: 'allure-results']]
+      archiveArtifacts artifacts: 'test-results/**', allowEmptyArchive: true
+    }
+  }
+}
