@@ -1,0 +1,8 @@
+{
+    "linkHrefs": {
+        "Favorites": "/account/favorites",
+        "Profile": "/account/profile",
+        "Invoices": "/account/invoices",
+        "Messages": "/account/messages"
+    }
+}

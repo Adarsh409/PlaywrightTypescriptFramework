@@ -1,6 +1,7 @@
 import { Page, Locator,expect } from '@playwright/test'
 import { HomePage } from './HomePage';
 import {CartPage} from '../pages/CartPage';
+import {SignInPage} from './SignInPage';
 
 
 export class Header
@@ -9,13 +10,13 @@ export class Header
     private readonly homeLink: Locator;
     private readonly cartLink: Locator;
     private readonly cartQuantity: Locator;
-    //readonly cartCount: Locator;
+    private readonly signInLink: Locator;
     constructor(page: Page)
     {
         this.page = page;
         this.homeLink = page.getByRole("link", { name: "Home" });
        this.cartLink = page.getByRole("link",{name:"cart"})
-       //this.cartCount = this.cartLink.locator('span');
+       this.signInLink = page.getByRole("link",{name:"Sign in"})
        this.cartQuantity = page.getByTestId('cart-quantity')
     }
 
@@ -39,6 +40,13 @@ export class Header
     async isCartPageLinkVisible()
     {
         return this.cartLink;
+    }
+
+    async navigateToSignInPage():Promise<SignInPage>
+    {
+        await this.signInLink.click();
+        await this.waitForPageLoad();
+        return new SignInPage(this.page);
     }
 
     async navigateToCartPage():Promise<CartPage>
