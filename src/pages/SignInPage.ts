@@ -1,5 +1,6 @@
 import{Page,Locator} from '@playwright/test';
-import {BasePage} from '../pages/BasePage'
+import {BasePage} from './BasePage'
+import {AccountPage} from './AccountPage';
 export class SignInPage extends BasePage
 {
     private readonly emailField:Locator;
