@@ -9,8 +9,8 @@ export class SignInPage extends BasePage
     constructor(page:Page)
     {
         super(page);
-        this.emailField = page.getByRole("textbox",{name:"Your email"});
-        this.passwordField = page.getByRole("textbox",{name:"Your password"});
+        this.emailField = page.getByPlaceholder("Your email");
+        this.passwordField = page.getByPlaceholder("Your password");
         this.loginButton = page.getByRole("button",{name:"Login"});
 
     }
@@ -25,10 +25,12 @@ export class SignInPage extends BasePage
         await this.passwordField.fill(password);
     }
 
-    async login(email:string,password:string)
+    async login(email:string,password:string):Promise<AccountPage>
     {
         await this.enterEmail(email);
         await this.enterPassword(password);
         await this.loginButton.click();
+        await this.page.waitForURL('**/account');
+        return new AccountPage(this.page);
     }
 }

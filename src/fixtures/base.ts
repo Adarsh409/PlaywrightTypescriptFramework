@@ -1,6 +1,7 @@
 import { test as base, expect } from '@playwright/test';
 import { CartPage } from '../pages/CartPage';
 import { HomePage } from '../pages/HomePage';
+import { SignInPage } from '../pages/SignInPage';
 import product from '../../tests/data/product.json';
 import validationText from '../../tests/constants/validation-text.json';
 
@@ -8,6 +9,7 @@ type PurchaseItem = typeof product.purchaseList1[number];
 
 type PageFixture = {
     cartPage : CartPage;
+    signInPage: SignInPage;
     cartWithProducts: { cartPage: CartPage; purchaseItems: PurchaseItem[] };
 }
 export const test = base.extend<PageFixture>({
@@ -17,6 +19,14 @@ export const test = base.extend<PageFixture>({
         await homePage.loadApplication();
         const cartPage = await homePage.header.navigateToCartPage();
         await use(cartPage)
+    },
+
+    signInPage: async({page},use)=>
+    {
+        const homePage = new HomePage(page);
+        await homePage.loadApplication();
+        const signInPage = await homePage.header.navigateToSignInPage();
+        await use(signInPage);
     },
 
     cartWithProducts: async({page},use)=>

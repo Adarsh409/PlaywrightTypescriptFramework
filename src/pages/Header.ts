@@ -1,6 +1,7 @@
 import { Page, Locator,expect } from '@playwright/test'
 import { HomePage } from './HomePage';
 import {CartPage} from '../pages/CartPage';
+import {SignInPage} from './SignInPage';
 
 
 export class Header
@@ -41,11 +42,11 @@ export class Header
         return this.cartLink;
     }
 
-    async navigateToSignInPage()
+    async navigateToSignInPage():Promise<SignInPage>
     {
         await this.signInLink.click();
         await this.waitForPageLoad();
-        
+        return new SignInPage(this.page);
     }
 
     async navigateToCartPage():Promise<CartPage>

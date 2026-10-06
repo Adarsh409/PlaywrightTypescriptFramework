@@ -26,6 +26,16 @@ export class AccountPage extends BasePage
         return this.pageHeading;
     }
 
+    async getLinks():Promise<Record<string,Locator>>
+    {
+        return {
+            Favorites: this.favoritesPageLink,
+            Profile: this.profilePageLink,
+            Invoices: this.invoicesPageLink,
+            Messages: this.messagesPageLink
+        };
+    }
+
     async getLinksEnabledStatus():Promise<Record<string,boolean>>
     {
         return {
