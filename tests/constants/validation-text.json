@@ -2,5 +2,8 @@
     "product":{
         "addToCartSuccess":"Product added to shopping cart.",
         "removeFromCartSuccess":"Product deleted."
+    },
+    "login":{
+        "invalidCredentials":"Invalid email or password"
     }
 }
