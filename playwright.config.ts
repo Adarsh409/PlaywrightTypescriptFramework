@@ -65,6 +65,7 @@ export default defineConfig({
     {
       name: 'api',
       testMatch: '**/api/**/*.spec.ts',
+      use: { baseURL: 'https://api.practicesoftwaretesting.com' },
     },
 
     /* Test against mobile viewports. */
