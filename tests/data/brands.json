@@ -1,0 +1,5 @@
+{
+    "searchEndpoint": "https://api.practicesoftwaretesting.com/brands/search",
+    "searchText": "ForgeFlex",
+    "expectedName": "ForgeFlex Tools"
+}
