@@ -1,4 +1,4 @@
-import {test,expect} from '../src/fixtures/base';
+import {test,expect} from '../src/fixtures/Base';
 import accountData from './data/account.json'
 import validationText from './constants/validation-text.json'
 

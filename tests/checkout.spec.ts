@@ -1,4 +1,4 @@
-import {test,expect} from '../src/fixtures/base';
+import {test,expect} from '../src/fixtures/Base';
 import {CheckoutPage} from '../src/pages/CheckoutPage'
 import checkoutData from './data/checkout.json'
 
