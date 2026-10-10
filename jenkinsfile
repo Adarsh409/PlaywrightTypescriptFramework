@@ -24,8 +24,6 @@ pipeline {
           docker run --rm --ipc=host ^
             -v "%WORKSPACE%":/work -w /work ^
             -e CI ^
-            -e LOGIN_EMAIL ^
-            -e LOGIN_PASSWORD ^
             -e ADMIN_LOGIN_EMAIL ^
             -e ADMIN_LOGIN_PASSWORD ^
             mcr.microsoft.com/playwright:v1.63.0-noble ^
