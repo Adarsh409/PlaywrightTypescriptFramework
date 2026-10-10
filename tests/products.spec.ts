@@ -1,4 +1,4 @@
-import {test,expect} from '../src/fixtures/base';
+import {test,expect} from '../src/fixtures/Base';
 import {HomePage} from '../src/pages/HomePage'
 import product from './data/product.json'
 test("should display only matching products when searching by keyword", async({page}) => {

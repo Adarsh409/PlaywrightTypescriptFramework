@@ -45,17 +45,27 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
+      testIgnore: '**/api/**',
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
       name: 'firefox',
+      testIgnore: '**/api/**',
       use: { ...devices['Desktop Firefox'] },
     },
 
     {
       name: 'webkit',
+      testIgnore: '**/api/**',
       use: { ...devices['Desktop Safari'] },
+    },
+
+    /* API tests need no browser, so they run once in their own project. */
+    {
+      name: 'api',
+      testMatch: '**/api/**/*.spec.ts',
+      use: { baseURL: 'https://api.practicesoftwaretesting.com' },
     },
 
     /* Test against mobile viewports. */

@@ -1,4 +1,4 @@
-import {test,expect} from '../src/fixtures/base'
+import {test,expect} from '../src/fixtures/Base'
 
 test("should add multiple products to cart with correct quantities", async({cartWithProducts}) => {
     const { cartPage, purchaseItems } = cartWithProducts;

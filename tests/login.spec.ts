@@ -1,12 +1,10 @@
-import {test,expect} from '../src/fixtures/base';
+import {test,expect} from '../src/fixtures/Base';
+import {getRequiredEnv} from '../src/utils/env';
 import accountData from './data/account.json'
 import validationText from './constants/validation-text.json'
 
 test("should login with valid credentials", async({signInPage}) => {
-    const email = process.env.LOGIN_EMAIL;
-    const password = process.env.LOGIN_PASSWORD;
-    if (!email || !password) throw new Error('LOGIN_EMAIL and LOGIN_PASSWORD must be set');
-    const accountPage = await signInPage.login(email, password);
+    const accountPage = await signInPage.login(getRequiredEnv('LOGIN_EMAIL'), getRequiredEnv('LOGIN_PASSWORD'));
 
     await expect.soft(await accountPage.getPageHeading()).toHaveText('My account');
     for (const [name, link] of Object.entries(await accountPage.getLinks()))
