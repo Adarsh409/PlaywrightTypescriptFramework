@@ -1,23 +1,17 @@
 pipeline {
-  agent any           
+  agent any
+
   options {
     timeout(time: 60, unit: 'MINUTES')
     buildDiscarder(logRotator(numToKeepStr: '20'))
   }
 
   triggers {
-    cron('H 2 * * *')          
+    cron('H 2 * * *')
   }
 
   stages {
     stage('Test') {
-      agent {
-        docker {
-          image 'mcr.microsoft.com/playwright:v1.63.0-noble'   // your Playwright version
-          args '--ipc=host -u root'
-          reuseNode true
-        }
-      }
       environment {
         CI = 'true'
         LOGIN_EMAIL          = credentials('login-email')
@@ -26,14 +20,17 @@ pipeline {
         ADMIN_LOGIN_PASSWORD = credentials('admin-login-password')
       }
       steps {
-        sh 'rm -rf allure-results test-results'
-        sh 'npm ci'
-        sh 'npx playwright test'
-      }
-      post {
-        always {
-          sh 'chown -R $(stat -c "%u:%g" .) .'
-        }
+        bat '''
+          docker run --rm --ipc=host ^
+            -v "%WORKSPACE%":/work -w /work ^
+            -e CI ^
+            -e LOGIN_EMAIL ^
+            -e LOGIN_PASSWORD ^
+            -e ADMIN_LOGIN_EMAIL ^
+            -e ADMIN_LOGIN_PASSWORD ^
+            mcr.microsoft.com/playwright:v1.63.0-noble ^
+            /bin/bash -c "rm -rf allure-results test-results && npm ci && npx playwright test"
+        '''
       }
     }
   }
