@@ -1,4 +1,4 @@
-import {test,expect} from '../../src/fixtures/api';
+import {test,expect} from '../../src/fixtures/Api';
 import {buildRequestBody} from '../../src/api/RequestBuilder';
 import brandData from '../data/brands.json'
 import addNewBrandRequest from '../data/requests/addNewBrand.json'

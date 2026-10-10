@@ -22,6 +22,8 @@ jobs:
       env:
         LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
         LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+        ADMIN_LOGIN_EMAIL: ${{ secrets.ADMIN_LOGIN_EMAIL }}
+        ADMIN_LOGIN_PASSWORD: ${{ secrets.ADMIN_LOGIN_PASSWORD }}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
