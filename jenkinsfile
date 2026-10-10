@@ -11,12 +11,15 @@ pipeline {
 
   stages {
     stage('Test') {
-      agent {
-        docker {
-          image 'mcr.microsoft.com/playwright:v1.63.0-noble'   // your Playwright version
-          args '--ipc=host -u root'
-          reuseNode true
-        }
+      steps {
+        bat '''
+          docker run --rm --ipc=host ^
+            -v "%WORKSPACE%":/work -w /work ^
+            -e CI=true ^
+            mcr.microsoft.com/playwright:v1.63.0-noble ^
+            /bin/bash -c "npm ci && npx playwright test"
+        '''
+      }
       }
       environment {
         CI = 'true'
