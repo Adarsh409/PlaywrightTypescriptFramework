@@ -14,8 +14,6 @@ pipeline {
     stage('Test') {
       environment {
         CI = 'true'
-        LOGIN_EMAIL          = credentials('login-email')
-        LOGIN_PASSWORD       = credentials('login-password')
         ADMIN_LOGIN_EMAIL    = credentials('admin-login-email')
         ADMIN_LOGIN_PASSWORD = credentials('admin-login-password')
       }
