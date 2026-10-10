@@ -66,5 +66,10 @@ export class HomePage extends BasePage
        return new ProductDetailsPage(this.page);
     }
 
-   
+    async selectFirstProduct():Promise<ProductDetailsPage>
+    {
+       await this.searchResults.first().click();
+       await this.waitForPageLoad();
+       return new ProductDetailsPage(this.page);
+    }
 }
