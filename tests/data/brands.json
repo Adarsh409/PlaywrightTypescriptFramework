@@ -1,5 +1,14 @@
 {
     "searchEndpoint": "/brands/search",
     "searchText": "ForgeFlex",
-    "expectedName": "ForgeFlex Tools"
+    "expectedName": "ForgeFlex Tools",
+    "addEndpoint": "/brands",
+    "newBrand": {
+        "name": "Automation Test Brand",
+        "slug": "automation-test-brand"
+    },
+    "updatedBrand": {
+        "name": "Automation Test Brand Updated",
+        "slug": "automation-test-brand-updated"
+    }
 }
