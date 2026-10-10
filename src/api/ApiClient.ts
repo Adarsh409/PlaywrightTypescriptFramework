@@ -23,6 +23,16 @@ export class ApiClient
         return await this.request.post(url, { data: body });
     }
 
+    async put(url: string, body: unknown): Promise<APIResponse>
+    {
+        return await this.request.put(url, { data: body });
+    }
+
+    async delete(url: string, accessToken?: string): Promise<APIResponse>
+    {
+        return await this.request.delete(url, { headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined });
+    }
+
     async generateToken(email: string, password: string): Promise<APIResponse>
     {
         return await this.post('/users/login', buildRequestBody(loginRequest, { email, password }));
