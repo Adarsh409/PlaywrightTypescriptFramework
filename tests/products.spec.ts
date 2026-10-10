@@ -1,10 +1,8 @@
 import {test,expect} from '../src/fixtures/Base';
-import {HomePage} from '../src/pages/HomePage'
+import {mockProductStock} from '../src/utils/networkMocks'
 import product from './data/product.json'
-test("should display only matching products when searching by keyword", async({page}) => {
+test("should display only matching products when searching by keyword", async({homePage}) => {
     const productSearchData = product.productSearch;
-    const homePage = new HomePage(page);
-    await homePage.loadApplication()
     await homePage.searchProduct(productSearchData.searchText);
     await expect(await homePage.getSearchResultMessage()).toHaveText(`${productSearchData.expectedSearchResultCount} products found for '${productSearchData.searchText}'`)
     const searchResults = await homePage.getProductSearchResults();
@@ -17,5 +15,9 @@ test("should display only matching products when searching by keyword", async({p
 
 })
 
+test("should display Out of stock message when the product is returned as out of stock", async({page, homePage}) => {
+    await mockProductStock(page, false);
+    const productDetailsPage = await homePage.selectFirstProduct();
 
-
+    await expect(await productDetailsPage.getOutOfStockMessage()).toHaveText('Out of stock');
+})

@@ -8,31 +8,33 @@ import validationText from '../../tests/constants/validation-text.json';
 type PurchaseItem = typeof product.purchaseList1[number];
 
 type PageFixture = {
+    homePage: HomePage;
     cartPage : CartPage;
     signInPage: SignInPage;
     cartWithProducts: { cartPage: CartPage; purchaseItems: PurchaseItem[] };
 }
 export const test = base.extend<PageFixture>({
-    cartPage: async({page},use)=>
+    homePage: async({page},use)=>
     {
         const homePage = new HomePage(page);
         await homePage.loadApplication();
+        await use(homePage);
+    },
+
+    cartPage: async({homePage},use)=>
+    {
         const cartPage = await homePage.header.navigateToCartPage();
         await use(cartPage)
     },
 
-    signInPage: async({page},use)=>
+    signInPage: async({homePage},use)=>
     {
-        const homePage = new HomePage(page);
-        await homePage.loadApplication();
         const signInPage = await homePage.header.navigateToSignInPage();
         await use(signInPage);
     },
 
-    cartWithProducts: async({page},use)=>
+    cartWithProducts: async({page, homePage},use)=>
     {
-        const homePage = new HomePage(page);
-        await homePage.loadApplication();
         const purchaseItems = product.purchaseList1;
         let itemCount = 0;
 
